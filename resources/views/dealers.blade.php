@@ -1,14 +1,14 @@
 @extends('layouts.app')
 
 @section('title', 'Dealer')
-@section('meta_description', 'Temukan gallery dan dealer resmi Glosspro di kota Anda.')
+@section('meta_description', 'Temukan gallery dan dealer resmi LEXENT Building Window Film di kota Anda.')
 
 @section('content')
 
     <section class="page-header">
         <div class="container">
             <span class="eyebrow">Dealer Locator</span>
-            <h1 class="section-title">Kunjungi Gallery Resmi Glosspro</h1>
+            <h1 class="section-title">Kunjungi Gallery Resmi LEXENT</h1>
         </div>
     </section>
 

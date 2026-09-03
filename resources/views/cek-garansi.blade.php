@@ -1,14 +1,14 @@
 @extends('layouts.app')
 
 @section('title', 'Cek Garansi')
-@section('meta_description', 'Cek status garansi resmi produk Glosspro menggunakan kode warranty Anda.')
+@section('meta_description', 'Cek status garansi resmi film gedung LEXENT menggunakan kode warranty Anda.')
 
 @section('content')
 
     <section class="page-header">
         <div class="container">
             <span class="eyebrow">Cek Garansi</span>
-            <h1 class="section-title">Verifikasi Garansi Resmi Glosspro</h1>
+            <h1 class="section-title">Verifikasi Garansi Resmi LEXENT</h1>
         </div>
     </section>
 
@@ -17,7 +17,7 @@
             <div class="check-warranty-card glass">
                 <p class="section-subtitle" style="margin: 0 auto var(--space-2);">
                     Masukkan kode warranty yang tertera pada kartu garansi Anda untuk melihat
-                    detail perlindungan produk Glosspro Anda.
+                    detail perlindungan film LEXENT Anda.
                 </p>
 
                 <form class="check-warranty-form" id="checkWarrantyForm">

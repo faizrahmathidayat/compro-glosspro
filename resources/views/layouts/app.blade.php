@@ -3,8 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Glosspro') — Premium Automotive Window Film</title>
-    <meta name="description" content="@yield('meta_description', 'Glosspro - kaca film otomotif premium dengan perlindungan panas dan privasi kelas atas.')">
+    <title>@yield('title', 'LEXENT') — Building Window Film</title>
+    <meta name="description" content="@yield('meta_description', 'LEXENT - kaca film gedung premium. Kontrol panas & silau, penolakan UV hingga 99%, efisiensi energi, dan garansi resmi hingga 8 tahun.')">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
 <body>
