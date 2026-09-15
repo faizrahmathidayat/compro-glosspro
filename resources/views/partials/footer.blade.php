@@ -2,48 +2,50 @@
     <div class="container">
         <div class="footer-grid">
             <div>
-                <div class="footer-logo">LEX<span>ENT</span></div>
+                <div class="footer-logo">
+                    <img src="{{ asset('images/glosspro-logo.png') }}" alt="GlossPro">
+                    <span class="footer-logo-text">GlossPro</span>
+                </div>
                 <p class="footer-about">
-                    Building Window Film. LEXENT menghadirkan kaca film gedung dengan
-                    kontrol panas &amp; silau, penolakan UV hingga 99%, efisiensi energi,
-                    dan garansi resmi hingga 8 tahun.
+                    Car Coating &middot; Detailing &middot; Window Film &middot; PPF. GlossPro menghadirkan
+                    proteksi dan estetika kendaraan premium dengan garansi resmi hingga 10 tahun.
                 </p>
                 <div class="footer-social">
                     <a href="#" aria-label="Instagram">IG</a>
                     <a href="#" aria-label="Facebook">FB</a>
-                    <a href="#" aria-label="LinkedIn">IN</a>
-                    <a href="#" aria-label="WhatsApp">WA</a>
+                    <a href="#" aria-label="TikTok">TT</a>
+                    <a href="https://wa.me/6285771855911" target="_blank" rel="noopener" aria-label="WhatsApp">WA</a>
                 </div>
             </div>
 
             <div class="footer-col">
                 <h5>Sitemap</h5>
                 <a href="{{ route('home') }}">Home</a>
-                <a href="{{ route('about') }}">About</a>
-                <a href="{{ route('products.index') }}">Produk</a>
-                <a href="{{ route('dealers') }}">Dealer</a>
+                <a href="{{ route('about') }}">About Us</a>
+                <a href="{{ route('portfolio') }}">Portfolio</a>
+                <a href="{{ route('contact') }}">Contact Us</a>
                 <a href="{{ route('cek-garansi') }}">Cek Garansi</a>
             </div>
 
             <div class="footer-col">
-                <h5>Seri Film</h5>
-                <a href="{{ route('products.show', 'bv-05') }}">Black Vision</a>
-                <a href="{{ route('products.show', 'rf-05') }}">Reflective Series</a>
-                <a href="{{ route('products.show', 'hp-08') }}">High Performance</a>
-                <a href="{{ route('products.show', 'up-08') }}">Ultra Protect</a>
+                <h5>Layanan</h5>
+                <a href="{{ route('services.show', 'car-coating-01') }}">Car Coating</a>
+                <a href="{{ route('services.show', 'detailing-01') }}">Detailing</a>
+                <a href="{{ route('services.show', 'window-film-01') }}">Window Film</a>
+                <a href="{{ route('services.show', 'ppf-01') }}">Paint Protection Film</a>
             </div>
 
             <div class="footer-col">
                 <h5>Kontak</h5>
                 <p>Jl. Jenderal Sudirman No. 45, Jakarta Pusat</p>
                 <p>(021) 555-0142</p>
-                <p>hello@lexent.id</p>
+                <p>hello@glosspro.id</p>
             </div>
         </div>
 
         <div class="footer-bottom">
-            <span>&copy; {{ date('Y') }} LEXENT. All rights reserved.</span>
-            <span>Smart Film &middot; Better Buildings</span>
+            <span>&copy; {{ date('Y') }} GlossPro. All rights reserved.</span>
+            <span>Precision Protection &middot; Timeless Shine</span>
         </div>
     </div>
 </footer>

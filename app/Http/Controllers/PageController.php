@@ -7,133 +7,196 @@ use Illuminate\Http\Request;
 class PageController extends Controller
 {
     /**
-     * The four LEXENT building window-film series, straight from the printed
-     * building catalog. Copy and per-series technology are the catalog's own
-     * wording.
+     * The four GlossPro service pillars. Single source of truth shared by
+     * the navbar mega-menu, homepage showcase, and services index.
      */
-    private function seriesCatalog(): array
+    private function servicePillars(): array
     {
         return [
-            'BV' => [
-                'code' => 'BV',
-                'name' => 'LEXENT Black Vision',
-                'label' => 'Black Vision',
-                'accent' => 'accent-bv',
-                'tagline' => 'Privasi Tinggi & Kontrol Panas',
-                'description' => 'LEXENT Black Series hadir dengan teknologi kaca film yang dirancang untuk memberikan perlindungan optimal dari panas & sinar UV, sekaligus menghadirkan privasi tinggi dan kenyamanan pada bangunan Anda.',
-                'attributes' => ['High Privacy', 'Low Haze', 'UV Protection'],
+            'car-coating' => [
+                'slug' => 'car-coating',
+                'code' => 'CC',
+                'icon' => '&#10022;',
+                'name' => 'Car Coating',
+                'tagline' => 'Nano Ceramic & Graphene',
+                'description' => 'Lapisan pelindung cat nano ceramic dan graphene yang mengunci kilau, menahan goresan halus, dan membuat kendaraan Anda mudah dibersihkan bertahun-tahun.',
+                'attributes' => ['9H Hardness', 'Hydrophobic', 'UV & Oxidation Protection'],
                 'metrics' => [
-                    ['value' => '99%', 'label' => 'UV Rejection'],
-                    ['value' => '62%', 'label' => 'Heat Rejection'],
-                    ['value' => '75%', 'label' => 'Infrared Rejection'],
+                    ['label' => 'Hardness', 'value' => '9H'],
+                    ['label' => 'Durability', 'value' => 's/d 7 Thn'],
+                    ['label' => 'Gloss Boost', 'value' => 'Tinggi'],
+                ],
+                'process' => [
+                    'Inspeksi cat & konsultasi pilihan lapisan (Nano Ceramic / Graphene) sesuai kondisi kendaraan.',
+                    'Decontamination — clay bar dan iron remover untuk mengangkat kontaminan yang menempel di cat.',
+                    'Paint correction ringan untuk menghaluskan permukaan sebelum lapisan diaplikasikan.',
+                    'Aplikasi coating lapis-demi-lapis di ruang bebas debu, lalu curing sesuai waktu kering produk.',
+                    'Quality check kilau & ketebalan lapisan, serah terima dengan panduan perawatan & kartu garansi.',
+                ],
+                'faq' => [
+                    ['q' => 'Berapa lama coating bertahan?', 'a' => 'Nano Ceramic bertahan 2-3 tahun, Graphene hingga 5-7 tahun tergantung perawatan dan kondisi pemakaian harian.'],
+                    ['q' => 'Apakah coating anti gores total?', 'a' => 'Coating menambah lapisan pelindung 9H yang menahan swirl mark dan goresan halus akibat pencucian, bukan proteksi benturan/gores dalam seperti PPF.'],
                 ],
             ],
-            'RF' => [
-                'code' => 'RF',
-                'name' => 'LEXENT Reflective',
-                'label' => 'Reflective Series',
-                'accent' => 'accent-rf',
-                'tagline' => 'Reflektif, Modern & Elegan',
-                'description' => 'LEXENT Reflective Series menghadirkan solusi kaca film dengan karakter reflektif yang dirancang untuk meningkatkan perlindungan dari panas matahari, memberikan privasi yang lebih baik, serta menciptakan tampilan modern dan elegan pada bangunan Anda.',
-                'attributes' => ['Karakter Reflektif', 'Privasi Lebih Baik', 'Tampilan Modern'],
+            'detailing' => [
+                'slug' => 'detailing',
+                'code' => 'DT',
+                'icon' => '&#10038;',
+                'name' => 'Detailing',
+                'tagline' => 'Interior, Exterior, Engine & Glass',
+                'description' => 'Perawatan menyeluruh dari kabin, mesin, hingga kaca — mengembalikan kendaraan ke kondisi sedetail mungkin dari pabrik, bahkan lebih baik.',
+                'attributes' => ['Steam Sanitizing', 'Machine Polish', 'Ozone Treatment'],
                 'metrics' => [
-                    ['value' => '92%', 'label' => 'Infrared Rejection'],
-                    ['value' => '55%', 'label' => 'Heat Rejection'],
-                    ['value' => '90%', 'label' => 'UV Rejection'],
+                    ['label' => 'Paket', 'value' => '4 Area'],
+                    ['label' => 'Durasi', 'value' => '3-8 Jam'],
+                    ['label' => 'Hasil', 'value' => 'Showroom'],
+                ],
+                'process' => [
+                    'Asesmen kondisi kabin, cat, mesin, dan kaca untuk menentukan paket yang sesuai.',
+                    'Exterior wash dua tahap (pre-wash + contact wash) bebas swirl, dilanjut clay bar bila perlu.',
+                    'Machine polish untuk exterior, steam sanitizing & pembersihan sela untuk interior.',
+                    'Engine bay degreasing dan dressing, glass detailing dengan hydrophobic coating tipis.',
+                    'Inspeksi akhir seluruh area sebelum kendaraan diserahkan kembali.',
+                ],
+                'faq' => [
+                    ['q' => 'Berapa lama proses detailing?', 'a' => 'Tergantung paket, mulai dari 3 jam untuk quick detail hingga 8 jam untuk paket lengkap interior + exterior + mesin.'],
+                    ['q' => 'Apakah detailing menghilangkan bau apek di kabin?', 'a' => 'Ya, paket interior mencakup steam sanitizing dan ozone treatment yang menetralkan bau serta membunuh bakteri di jok dan karpet.'],
                 ],
             ],
-            'HP' => [
-                'code' => 'HP',
-                'name' => 'LEXENT High Performance',
-                'label' => 'High Performance',
-                'accent' => 'accent-hp',
-                'tagline' => 'Ultra HD Nano Ceramic',
-                'description' => 'LEXENT High Performance hadir dengan teknologi Ultra HD Nano Ceramic terbaru yang dirancang untuk memberikan perlindungan optimal dari panas & sinar UV, dengan kejernihan tinggi untuk menghadirkan kenyamanan dan visibilitas yang lebih baik.',
-                'attributes' => ['Ultra HD Clarity', 'High Visibility', 'UV Protection'],
+            'window-film' => [
+                'slug' => 'window-film',
+                'code' => 'WF',
+                'icon' => '&#9635;',
+                'name' => 'Window Film',
+                'tagline' => 'Kaca Film Ceramic & Carbon',
+                'description' => 'Kaca film performa tinggi yang menahan panas dan silau tanpa mengorbankan kejernihan pandangan, dengan pilihan tingkat kegelapan sesuai regulasi dan selera.',
+                'attributes' => ['UV Rejection 99%', 'IR Rejection Tinggi', 'Anti Silau'],
                 'metrics' => [
-                    ['value' => '99%', 'label' => 'UV Rejection'],
-                    ['value' => '72%', 'label' => 'Heat Rejection'],
-                    ['value' => '90%', 'label' => 'Infrared Rejection'],
+                    ['label' => 'UV Rejection', 'value' => '99%'],
+                    ['label' => 'IR Rejection', 'value' => 's/d 95%'],
+                    ['label' => 'Garansi', 'value' => 's/d 9 Thn'],
+                ],
+                'process' => [
+                    'Konsultasi tingkat kegelapan (VLT) per posisi kaca sesuai kebutuhan & regulasi lalu lintas.',
+                    'Pembersihan menyeluruh permukaan kaca dari debu dan residu sebelum pemasangan.',
+                    'Pemotongan film presisi mengikuti pola kaca kendaraan (bukan tempel-potong langsung di kaca).',
+                    'Pemasangan dengan larutan aplikasi khusus untuk hasil tanpa gelembung.',
+                    'Masa curing beberapa hari sebelum kaca boleh dibuka/dicuci, sesuai instruksi teknisi.',
+                ],
+                'faq' => [
+                    ['q' => 'VLT berapa yang legal untuk kaca depan?', 'a' => 'Regulasi bervariasi per daerah; tim kami membantu merekomendasikan VLT yang sesuai ketentuan sekaligus kebutuhan kenyamanan Anda.'],
+                    ['q' => 'Apakah window film mengurangi silau saat malam hari?', 'a' => 'Ya, terutama seri ceramic yang meredam silau lampu dari arah berlawanan tanpa mengurangi visibilitas pengemudi.'],
                 ],
             ],
-            'UP' => [
-                'code' => 'UP',
-                'name' => 'LEXENT Ultra Protect',
-                'label' => 'Ultra Protect',
-                'accent' => 'accent-up',
-                'tagline' => 'Sputter Magnetron',
-                'description' => 'LEXENT Ultra Protect hadir dengan teknologi Sputter Magnetron yang dirancang untuk memberikan perlindungan optimal dari panas dan sinar UV, sekaligus membantu mengurangi paparan sinar matahari dan meningkatkan kenyamanan serta privasi pada bangunan Anda.',
-                'attributes' => ['Maximum Heat Protection', 'IR 99% Protection', 'Enhanced Privacy', 'High Visibility Clarity'],
+            'ppf' => [
+                'slug' => 'ppf',
+                'code' => 'PPF',
+                'icon' => '&#9906;',
+                'name' => 'Paint Protection Film',
+                'tagline' => 'Self-Healing TPU Film',
+                'description' => 'Lapisan film TPU self-healing yang menahan baret halus, kerikil, dan chip di jalan tol — melindungi cat asli sekaligus mempertahankan nilai jual kembali kendaraan.',
+                'attributes' => ['Self-Healing', 'Anti Chipping', 'Gloss / Matte / Satin'],
                 'metrics' => [
-                    ['value' => '99%', 'label' => 'UV Rejection'],
-                    ['value' => '99%', 'label' => 'Infrared Rejection'],
-                    ['value' => '76%', 'label' => 'Heat Rejection'],
+                    ['label' => 'Ketebalan', 'value' => '150-200 mic'],
+                    ['label' => 'Self-Healing', 'value' => 'Ya'],
+                    ['label' => 'Garansi', 'value' => 's/d 10 Thn'],
+                ],
+                'process' => [
+                    'Konsultasi cakupan (full body / partial) dan pilihan finish (Gloss, Matte, atau Satin).',
+                    'Paint correction ringan agar film menempel sempurna tanpa menjebak kontaminan.',
+                    'Pemotongan film mengikuti pola digital presisi per panel bodi kendaraan.',
+                    'Instalasi basah panel demi panel dengan heat gun untuk kontur lekukan bodi.',
+                    'Trimming detail di tepi panel, inspeksi akhir, dan edukasi perawatan self-healing film.',
+                ],
+                'faq' => [
+                    ['q' => 'Apa itu self-healing pada PPF?', 'a' => 'Lapisan TPU memiliki elastomer yang "menutup" baret halus dengan bantuan panas (sinar matahari/air hangat) sehingga permukaan kembali mulus.'],
+                    ['q' => 'PPF Matte bisa diubah kembali ke Gloss?', 'a' => 'Bisa — PPF Matte dapat dilepas kapan saja tanpa merusak cat asli di baliknya, karena film bekerja sebagai lapisan terpisah.'],
                 ],
             ],
         ];
     }
 
     /**
-     * Flat list of every VLT variant across all four series, with the exact
-     * specification figures from the building catalog.
+     * Flat catalog of every variant/package across all four pillars — the
+     * automotive equivalent of the old building-film VLT lineup.
      */
-    private function productLineup(): array
+    private function serviceVariantLineup(): array
     {
-        $series = $this->seriesCatalog();
+        $pillars = $this->servicePillars();
 
-        // [ series, number, vlt, vlr, tser, uv, irr, thickness ]
         $rows = [
-            ['BV', '05', '5%', '8%', '62%', '99%', '75%', '1,8 mil'],
-            ['BV', '18', '5%', '8%', '58%', '99%', '65%', '1,8 mil'],
-            ['BV', '35', '5%', '8%', '53%', '99%', '63%', '1,8 mil'],
+            // pillar, code-number, name, tagline, badge, description, specs
+            ['car-coating', '01', 'Nano Ceramic Coating', 'Kilau Maksimal, Proteksi Harian', '9H Hardness',
+                'Lapisan ceramic dasar dengan kejernihan tinggi dan efek hydrophobic untuk pemakaian harian.',
+                [['label' => 'Hardness', 'value' => '9H'], ['label' => 'Hydrophobic Angle', 'value' => '100°'], ['label' => 'Durability', 'value' => '2-3 Thn'], ['label' => 'Gloss Enhancement', 'value' => 'Tinggi']]],
+            ['car-coating', '02', 'Nano Ceramic HD', 'Ultra Clarity, Proteksi Menengah', '9H Hardness',
+                'Formula HD dengan kejernihan optik lebih tinggi, cocok untuk warna cat solid maupun metalik.',
+                [['label' => 'Hardness', 'value' => '9H'], ['label' => 'Hydrophobic Angle', 'value' => '105°'], ['label' => 'Durability', 'value' => '3-5 Thn'], ['label' => 'Gloss Enhancement', 'value' => 'Sangat Tinggi']]],
+            ['car-coating', '03', 'Graphene Coating', 'Proteksi Maksimal, Tahan Panas', 'Self-Healing Swirl',
+                'Struktur graphene menambah resistansi panas dan sifat anti-statis sehingga debu lebih sulit menempel.',
+                [['label' => 'Hardness', 'value' => '9H+'], ['label' => 'Hydrophobic Angle', 'value' => '>110°'], ['label' => 'Durability', 'value' => '5-7 Thn'], ['label' => 'Thermal Resistance', 'value' => 'Tinggi']]],
 
-            ['RF', '05', '5%', '8%', '55%', '90%', '92%', '2 mil'],
+            ['detailing', '01', 'Exterior Detailing', 'Clay Bar, Machine Polish, Swirl Removal', 'Showroom Finish',
+                'Decontamination, koreksi cat ringan-menengah, dan proteksi wax/sealant untuk tampilan luar mengkilap.',
+                [['label' => 'Durasi', 'value' => '3-5 Jam'], ['label' => 'Termasuk', 'value' => 'Clay + Polish'], ['label' => 'Cocok Untuk', 'value' => 'Perawatan Berkala']]],
+            ['detailing', '02', 'Interior Detailing', 'Steam Sanitizing & Leather Conditioning', 'Kabin Higienis',
+                'Pembersihan dalam kabin, jok, karpet, hingga dashboard, dengan sanitasi uap dan ozone treatment.',
+                [['label' => 'Durasi', 'value' => '3-4 Jam'], ['label' => 'Termasuk', 'value' => 'Steam + Ozone'], ['label' => 'Cocok Untuk', 'value' => 'Kabin Berbau/Kotor']]],
+            ['detailing', '03', 'Engine Bay Detailing', 'Degreasing & Dressing', 'Ruang Mesin Bersih',
+                'Pembersihan ruang mesin dari debu dan oli membandel, dilanjut dressing anti debu.',
+                [['label' => 'Durasi', 'value' => '1-2 Jam'], ['label' => 'Termasuk', 'value' => 'Degrease + Dress'], ['label' => 'Cocok Untuk', 'value' => 'Sebelum Servis/Jual']]],
+            ['detailing', '04', 'Glass Detailing', 'Water Spot Removal & Hydrophobic Coat', 'Kaca Sejernih Kristal',
+                'Menghilangkan water spot dan baret halus di kaca, ditutup lapisan hydrophobic tipis.',
+                [['label' => 'Durasi', 'value' => '1-2 Jam'], ['label' => 'Termasuk', 'value' => 'Polish + Coat'], ['label' => 'Cocok Untuk', 'value' => 'Kaca Buram/Berkerak']]],
 
-            ['HP', '08', '8%', '5%', '72%', '99%', '90%', '2 mil'],
-            ['HP', '15', '15%', '5%', '70%', '99%', '90%', '2 mil'],
-            ['HP', '35', '35%', '5%', '71%', '99%', '90%', '2 mil'],
-            ['HP', '70', '70%', '5%', '71%', '99%', '90%', '2 mil'],
+            ['window-film', '01', 'Ceramic Film VLT 5%', 'Privasi Maksimal', 'Sangat Gelap',
+                'Tingkat kegelapan tertinggi untuk privasi maksimal pada kaca belakang dan samping belakang.',
+                [['label' => 'VLT', 'value' => '5%'], ['label' => 'UV Rejection', 'value' => '99%'], ['label' => 'IR Rejection', 'value' => '95%'], ['label' => 'Tipe', 'value' => 'Ceramic']]],
+            ['window-film', '02', 'Ceramic Film VLT 20%', 'Gelap Seimbang', 'Gelap Sedang',
+                'Kombinasi privasi dan visibilitas yang seimbang, favorit untuk kaca samping depan.',
+                [['label' => 'VLT', 'value' => '20%'], ['label' => 'UV Rejection', 'value' => '99%'], ['label' => 'IR Rejection', 'value' => '93%'], ['label' => 'Tipe', 'value' => 'Ceramic']]],
+            ['window-film', '03', 'Carbon Film VLT 40%', 'Terang & Anti Silau', 'Terang',
+                'Karakter carbon yang stabil warnanya (tidak memudar/berubah ungu) dengan VLT lebih terang.',
+                [['label' => 'VLT', 'value' => '40%'], ['label' => 'UV Rejection', 'value' => '99%'], ['label' => 'IR Rejection', 'value' => '85%'], ['label' => 'Tipe', 'value' => 'Carbon']]],
+            ['window-film', '04', 'Ceramic Film VLT 60%', 'Cahaya Alami Maksimal', 'Sangat Terang',
+                'VLT tinggi untuk kaca depan — proteksi UV & panas tanpa mengurangi cahaya alami secara signifikan.',
+                [['label' => 'VLT', 'value' => '60%'], ['label' => 'UV Rejection', 'value' => '99%'], ['label' => 'IR Rejection', 'value' => '80%'], ['label' => 'Tipe', 'value' => 'Ceramic']]],
 
-            ['UP', '08', '8%', '6%', '76%', '99%', '99%', '2 mil'],
-            ['UP', '20', '20%', '6%', '74%', '99%', '99%', '2 mil'],
-            ['UP', '30', '28%', '6%', '73%', '99%', '99%', '2 mil'],
-            ['UP', '50', '47%', '6%', '73%', '99%', '99%', '2 mil'],
-            ['UP', '65', '58%', '6%', '72%', '99%', '99%', '2 mil'],
-            ['UP', '75', '69%', '6%', '72%', '99%', '99%', '2 mil'],
+            ['ppf', '01', 'PPF Full Body Gloss', 'Proteksi Total, Kilau Natural', 'Full Body',
+                'Menutupi seluruh panel bodi dengan finish gloss yang mempertahankan tampilan cat asli.',
+                [['label' => 'Cakupan', 'value' => 'Full Body'], ['label' => 'Finish', 'value' => 'Gloss'], ['label' => 'Ketebalan', 'value' => '180 mic'], ['label' => 'Garansi', 'value' => '10 Thn']]],
+            ['ppf', '02', 'PPF Full Body Matte', 'Proteksi Total, Tampilan Doff', 'Full Body',
+                'Mengubah tampilan kendaraan menjadi matte sekaligus melindungi cat asli di baliknya.',
+                [['label' => 'Cakupan', 'value' => 'Full Body'], ['label' => 'Finish', 'value' => 'Matte'], ['label' => 'Ketebalan', 'value' => '180 mic'], ['label' => 'Garansi', 'value' => '10 Thn']]],
+            ['ppf', '03', 'PPF Partial Front Kit', 'Proteksi Area Rawan Chip', 'Partial',
+                'Melindungi bumper depan, kap mesin, fender, dan spion — area paling rawan baret kerikil.',
+                [['label' => 'Cakupan', 'value' => 'Bumper, Hood, Fender'], ['label' => 'Finish', 'value' => 'Gloss/Matte'], ['label' => 'Ketebalan', 'value' => '150 mic'], ['label' => 'Garansi', 'value' => '7 Thn']]],
+            ['ppf', '04', 'PPF Satin Full Body', 'Efek Semi-Doff Premium', 'Full Body',
+                'Finish satin di antara gloss dan matte, memberi kesan premium yang lebih jarang ditemui.',
+                [['label' => 'Cakupan', 'value' => 'Full Body'], ['label' => 'Finish', 'value' => 'Satin'], ['label' => 'Ketebalan', 'value' => '180 mic'], ['label' => 'Garansi', 'value' => '10 Thn']]],
         ];
 
         $lineup = [];
 
-        foreach ($rows as [$code, $number, $vlt, $vlr, $tser, $uv, $irr, $thickness]) {
-            $meta = $series[$code];
-            $vltNumber = (int) $vlt;
-
-            if ($vltNumber <= 15) {
-                $darkness = 'Sangat gelap — privasi maksimal';
-            } elseif ($vltNumber <= 40) {
-                $darkness = 'Gelap sedang — seimbang';
-            } else {
-                $darkness = 'Terang — cahaya alami maksimal';
-            }
+        foreach ($rows as [$pillarSlug, $number, $name, $tagline, $badge, $description, $specs]) {
+            $pillar = $pillars[$pillarSlug];
 
             $lineup[] = [
-                'slug' => strtolower($code) . '-' . $number,
-                'name' => $meta['name'] . ' ' . $number,
-                'series' => $code,
-                'series_label' => $meta['label'],
+                'slug' => $pillarSlug . '-' . $number,
+                'name' => $name,
+                'pillar' => $pillarSlug,
+                'pillar_label' => $pillar['name'],
                 'number' => $number,
-                'accent' => $meta['accent'],
-                'badge' => $meta['attributes'][0],
-                'tagline' => $meta['tagline'],
-                'series_description' => $meta['description'],
-                'darkness' => $darkness,
-                'attributes' => $meta['attributes'],
-                'vlt' => $vlt,
-                'vlr' => $vlr,
-                'tser' => $tser,
-                'uv' => $uv,
-                'irr' => $irr,
-                'thickness' => $thickness,
+                'code' => $pillar['code'],
+                'icon' => $pillar['icon'],
+                'badge' => $badge,
+                'tagline' => $tagline,
+                'pillar_description' => $pillar['description'],
+                'description' => $description,
+                'attributes' => $pillar['attributes'],
+                'specs' => $specs,
+                'process' => $pillar['process'],
+                'faq' => $pillar['faq'],
             ];
         }
 
@@ -141,37 +204,93 @@ class PageController extends Controller
     }
 
     /**
-     * Static official gallery / branch listing.
+     * Sample project gallery, tagged by service pillar + vehicle type for
+     * client-side filtering. Placeholder copy — swap in real project photos
+     * and captions before launch.
      */
-    private function dealerList(): array
+    private function portfolioItems(): array
+    {
+        return [
+            ['title' => 'Graphene Coating — Sedan Eropa', 'pillar' => 'car-coating', 'pillar_label' => 'Car Coating', 'car_type' => 'sedan', 'car_type_label' => 'Sedan'],
+            ['title' => 'Nano Ceramic — City Car Harian', 'pillar' => 'car-coating', 'pillar_label' => 'Car Coating', 'car_type' => 'hatchback', 'car_type_label' => 'Hatchback'],
+            ['title' => 'Interior Detailing — MPV Keluarga', 'pillar' => 'detailing', 'pillar_label' => 'Detailing', 'car_type' => 'mpv', 'car_type_label' => 'MPV'],
+            ['title' => 'Exterior Detailing — SUV Off-Road', 'pillar' => 'detailing', 'pillar_label' => 'Detailing', 'car_type' => 'suv', 'car_type_label' => 'SUV'],
+            ['title' => 'Ceramic Film VLT 20% — SUV Premium', 'pillar' => 'window-film', 'pillar_label' => 'Window Film', 'car_type' => 'suv', 'car_type_label' => 'SUV'],
+            ['title' => 'Carbon Film — Sedan Bisnis', 'pillar' => 'window-film', 'pillar_label' => 'Window Film', 'car_type' => 'sedan', 'car_type_label' => 'Sedan'],
+            ['title' => 'PPF Full Body Gloss — Mobil Sport', 'pillar' => 'ppf', 'pillar_label' => 'PPF', 'car_type' => 'sport', 'car_type_label' => 'Sport'],
+            ['title' => 'PPF Partial Front Kit — MPV Baru', 'pillar' => 'ppf', 'pillar_label' => 'PPF', 'car_type' => 'mpv', 'car_type_label' => 'MPV'],
+        ];
+    }
+
+    /**
+     * Placeholder testimonials — replace with real customer quotes before
+     * the site goes live.
+     */
+    private function testimonials(): array
+    {
+        return [
+            ['quote' => 'Hasil coating-nya jauh melebihi ekspektasi, cat mobil jadi terlihat seperti baru keluar showroom. Prosesnya juga dijelaskan detail dari awal.', 'author' => 'Kevin S.', 'meta' => 'Pemilik Honda Civic'],
+            ['quote' => 'Pasang PPF full body di sini karena banyak direkomendasikan. Hasil potongannya rapi banget di lekukan bodi, hampir tidak terlihat sambungannya.', 'author' => 'Amanda R.', 'meta' => 'Pemilik Mazda CX-5'],
+            ['quote' => 'Kabin mobil yang tadinya bau apek jadi wangi dan bersih total setelah interior detailing. Timnya juga on-time sesuai janji.', 'author' => 'Deni P.', 'meta' => 'Pemilik Toyota Avanza'],
+        ];
+    }
+
+    /**
+     * Material/brand wordmarks shown in the "Brand Partners" strip.
+     * Placeholder generic labels — swap for real supplier logos once
+     * confirmed partnerships exist.
+     */
+    private function brandPartners(): array
+    {
+        return ['Nano Ceramic Certified', 'Graphene Tech', 'TPU Film Grade-A', 'IR-Cut Ceramic Film'];
+    }
+
+    private function stats(): array
+    {
+        return [
+            ['value' => '5.000+', 'label' => 'Kendaraan Ditangani'],
+            ['value' => '9 Thn', 'label' => 'Garansi Tertinggi'],
+            ['value' => '4', 'label' => 'Cabang Workshop'],
+            ['value' => '4.9/5', 'label' => 'Rating Pelanggan'],
+        ];
+    }
+
+    /**
+     * GlossPro's own workshop branches (not third-party dealers).
+     */
+    private function branchList(): array
     {
         return [
             [
-                'name' => 'LEXENT Gallery Jakarta Pusat',
+                'name' => 'GlossPro Workshop Jakarta Pusat',
                 'city' => 'Jakarta',
                 'address' => 'Jl. Jenderal Sudirman No. 45, Jakarta Pusat',
                 'phone' => '(021) 555-0142',
+                'whatsapp' => '6285771855911',
                 'maps_url' => 'https://maps.google.com/?q=Jl.+Jenderal+Sudirman+No.+45+Jakarta+Pusat',
             ],
             [
-                'name' => 'LEXENT Gallery Bandung',
+                'name' => 'GlossPro Workshop Bandung',
                 'city' => 'Bandung',
                 'address' => 'Jl. Ir. H. Djuanda No. 88, Bandung',
                 'phone' => '(022) 555-0198',
+                'whatsapp' => '6285771855911',
                 'maps_url' => 'https://maps.google.com/?q=Jl.+Ir.+H.+Djuanda+No.+88+Bandung',
             ],
             [
-                'name' => 'LEXENT Gallery Surabaya',
+                'name' => 'GlossPro Workshop Surabaya',
                 'city' => 'Surabaya',
                 'address' => 'Jl. HR. Muhammad No. 12, Surabaya',
                 'phone' => '(031) 555-0176',
+                'whatsapp' => '6285771855911',
                 'maps_url' => 'https://maps.google.com/?q=Jl.+HR.+Muhammad+No.+12+Surabaya',
             ],
             [
-                'name' => 'LEXENT Gallery Denpasar',
+                'name' => 'GlossPro Workshop Denpasar',
                 'city' => 'Denpasar',
                 'address' => 'Jl. Sunset Road No. 21, Denpasar',
                 'phone' => '(0361) 555-0133',
+                'whatsapp' => '6285771855911',
                 'maps_url' => 'https://maps.google.com/?q=Jl.+Sunset+Road+No.+21+Denpasar',
             ],
         ];
@@ -180,9 +299,10 @@ class PageController extends Controller
     public function home()
     {
         return view('home', [
-            'series' => array_values($this->seriesCatalog()),
-            'products' => $this->productLineup(),
-            'dealers' => $this->dealerList(),
+            'pillars' => array_values($this->servicePillars()),
+            'stats' => $this->stats(),
+            'testimonials' => $this->testimonials(),
+            'partners' => $this->brandPartners(),
         ]);
     }
 
@@ -191,36 +311,45 @@ class PageController extends Controller
         return view('about');
     }
 
-    public function products()
+    public function services()
     {
-        return view('products.index', [
-            'series' => array_values($this->seriesCatalog()),
-            'products' => $this->productLineup(),
+        return view('services.index', [
+            'pillars' => array_values($this->servicePillars()),
+            'variants' => $this->serviceVariantLineup(),
         ]);
     }
 
-    public function productDetail(string $slug)
+    public function serviceDetail(string $slug)
     {
-        $product = collect($this->productLineup())->firstWhere('slug', $slug);
+        $variant = collect($this->serviceVariantLineup())->firstWhere('slug', $slug);
 
-        abort_if(!$product, 404);
+        abort_if(!$variant, 404);
 
-        $related = collect($this->productLineup())
-            ->where('series', $product['series'])
-            ->where('slug', '!=', $product['slug'])
+        $related = collect($this->serviceVariantLineup())
+            ->where('pillar', $variant['pillar'])
+            ->where('slug', '!=', $variant['slug'])
             ->values()
             ->all();
 
-        return view('products.show', [
-            'product' => $product,
+        return view('services.show', [
+            'variant' => $variant,
             'related' => $related,
         ]);
     }
 
-    public function dealers()
+    public function portfolio()
     {
-        return view('dealers', [
-            'dealers' => $this->dealerList(),
+        return view('portfolio', [
+            'items' => $this->portfolioItems(),
+            'pillars' => array_values($this->servicePillars()),
+        ]);
+    }
+
+    public function contact()
+    {
+        return view('contact', [
+            'branches' => $this->branchList(),
+            'pillars' => array_values($this->servicePillars()),
         ]);
     }
 

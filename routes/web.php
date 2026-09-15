@@ -8,14 +8,15 @@ use Illuminate\Support\Facades\Route;
 | Web Routes
 |--------------------------------------------------------------------------
 |
-| Glosspro static company profile routes. Every route is resolved through
+| GlossPro static company profile routes. Every route is resolved through
 | PageController - no view is called directly from here.
 |
 */
 
 Route::get('/', [PageController::class, 'home'])->name('home');
 Route::get('/about', [PageController::class, 'about'])->name('about');
-Route::get('/products', [PageController::class, 'products'])->name('products.index');
-Route::get('/products/{slug}', [PageController::class, 'productDetail'])->name('products.show');
-Route::get('/dealers', [PageController::class, 'dealers'])->name('dealers');
+Route::get('/layanan', [PageController::class, 'services'])->name('services.index');
+Route::get('/layanan/{slug}', [PageController::class, 'serviceDetail'])->name('services.show');
+Route::get('/portfolio', [PageController::class, 'portfolio'])->name('portfolio');
+Route::get('/contact', [PageController::class, 'contact'])->name('contact');
 Route::get('/cek-garansi', [PageController::class, 'cekGaransi'])->name('cek-garansi');

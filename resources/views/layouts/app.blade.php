@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'LEXENT') — Building Window Film</title>
-    <meta name="description" content="@yield('meta_description', 'LEXENT - kaca film gedung premium. Kontrol panas & silau, penolakan UV hingga 99%, efisiensi energi, dan garansi resmi hingga 8 tahun.')">
+    <title>@yield('title', 'GlossPro') — Car Coating, Detailing, Window Film & PPF</title>
+    <meta name="description" content="@yield('meta_description', 'GlossPro - Car Coating, Detailing, Window Film, dan Paint Protection Film premium untuk kendaraan Anda. Nano Ceramic & Graphene Coating, self-healing PPF, garansi resmi hingga 9 tahun.')">
+    <link rel="icon" type="image/png" href="{{ asset('images/glosspro-logo.png') }}">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
 <body>
@@ -26,6 +27,9 @@
             var navbar = document.getElementById('mainNavbar');
             var toggle = document.getElementById('navbarToggle');
             var links = document.getElementById('navbarLinks');
+            var backdrop = document.getElementById('navbarBackdrop');
+            var dropdown = document.getElementById('layananDropdown');
+            var dropdownToggle = document.getElementById('layananToggle');
 
             function onScroll() {
                 if (window.scrollY > 40) {
@@ -38,11 +42,53 @@
             window.addEventListener('scroll', onScroll);
             onScroll();
 
+            function closeMobileNav() {
+                links.classList.remove('is-open');
+                if (backdrop) { backdrop.classList.remove('is-open'); }
+                if (dropdown) { dropdown.classList.remove('is-open'); }
+                if (dropdownToggle) { dropdownToggle.setAttribute('aria-expanded', 'false'); }
+            }
+
             if (toggle && links) {
                 toggle.addEventListener('click', function () {
-                    links.classList.toggle('is-open');
+                    var isOpen = links.classList.toggle('is-open');
+                    if (backdrop) { backdrop.classList.toggle('is-open', isOpen); }
                 });
             }
+
+            if (backdrop) {
+                backdrop.addEventListener('click', closeMobileNav);
+            }
+
+            // Close the mobile drawer after following a plain nav link.
+            if (links) {
+                links.querySelectorAll(':scope > a').forEach(function (link) {
+                    link.addEventListener('click', closeMobileNav);
+                });
+            }
+
+            if (dropdown && dropdownToggle) {
+                dropdownToggle.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    var isOpen = dropdown.classList.toggle('is-open');
+                    dropdownToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+                });
+
+                dropdown.querySelectorAll('.mega-menu a').forEach(function (link) {
+                    link.addEventListener('click', closeMobileNav);
+                });
+
+                document.addEventListener('click', function (e) {
+                    if (!dropdown.contains(e.target)) {
+                        dropdown.classList.remove('is-open');
+                        dropdownToggle.setAttribute('aria-expanded', 'false');
+                    }
+                });
+            }
+
+            window.addEventListener('resize', function () {
+                if (window.innerWidth > 768) { closeMobileNav(); }
+            });
         })();
     </script>
 
