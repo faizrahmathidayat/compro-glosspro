@@ -54,8 +54,7 @@
                     </div>
 
                     <div class="hero-actions" style="margin-top: var(--space-4);">
-                        <a href="{{ route('contact') }}" class="btn btn-gold">Booking Layanan Ini</a>
-                        <a href="{{ route('cek-garansi') }}" class="btn btn-outline">Cek Garansi</a>
+                        <a href="{{ route('cek-garansi') }}" class="btn btn-gold">Cek Garansi</a>
                     </div>
 
                     @if(!empty($related))

@@ -30,4 +30,8 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'dashboard' => [
+        'base_url' => rtrim(env('DASHBOARD_BASE_URL', 'http://localhost:8000'), '/'),
+    ],
+
 ];

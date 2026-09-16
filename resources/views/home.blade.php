@@ -197,7 +197,7 @@
             <div class="glass">
                 <h2>Konsultasikan Kendaraan Anda Hari Ini</h2>
                 <p>Chat langsung dengan tim GlossPro untuk rekomendasi layanan yang paling sesuai.</p>
-                <a href="https://wa.me/6285771855911?text=Halo%20GlossPro%2C%20saya%20ingin%20konsultasi%20layanan." target="_blank" rel="noopener" class="btn btn-gold">Chat via WhatsApp</a>
+                <a href="https://wa.me/6285888899558?text=Halo%20GlossPro%2C%20saya%20ingin%20konsultasi%20layanan." target="_blank" rel="noopener" class="btn btn-gold">Chat via WhatsApp</a>
             </div>
         </div>
     </section>

@@ -14,7 +14,7 @@
                     <a href="#" aria-label="Instagram">IG</a>
                     <a href="#" aria-label="Facebook">FB</a>
                     <a href="#" aria-label="TikTok">TT</a>
-                    <a href="https://wa.me/6285771855911" target="_blank" rel="noopener" aria-label="WhatsApp">WA</a>
+                    <a href="https://wa.me/6285888899558" target="_blank" rel="noopener" aria-label="WhatsApp">WA</a>
                 </div>
             </div>
 
@@ -37,7 +37,7 @@
 
             <div class="footer-col">
                 <h5>Kontak</h5>
-                <p>Jl. Jenderal Sudirman No. 45, Jakarta Pusat</p>
+                <p>Ruko La Valle, Citra Garden Serpong No.66 Blk B17, Cisauk, Kota Tangerang Selatan, Banten 15341</p>
                 <p>(021) 555-0142</p>
                 <p>hello@glosspro.id</p>
             </div>

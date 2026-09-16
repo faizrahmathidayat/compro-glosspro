@@ -266,7 +266,7 @@ class PageController extends Controller
                 'city' => 'Jakarta',
                 'address' => 'Jl. Jenderal Sudirman No. 45, Jakarta Pusat',
                 'phone' => '(021) 555-0142',
-                'whatsapp' => '6285771855911',
+                'whatsapp' => '6285888899558',
                 'maps_url' => 'https://maps.google.com/?q=Jl.+Jenderal+Sudirman+No.+45+Jakarta+Pusat',
             ],
             [
@@ -274,7 +274,7 @@ class PageController extends Controller
                 'city' => 'Bandung',
                 'address' => 'Jl. Ir. H. Djuanda No. 88, Bandung',
                 'phone' => '(022) 555-0198',
-                'whatsapp' => '6285771855911',
+                'whatsapp' => '6285888899558',
                 'maps_url' => 'https://maps.google.com/?q=Jl.+Ir.+H.+Djuanda+No.+88+Bandung',
             ],
             [
@@ -282,7 +282,7 @@ class PageController extends Controller
                 'city' => 'Surabaya',
                 'address' => 'Jl. HR. Muhammad No. 12, Surabaya',
                 'phone' => '(031) 555-0176',
-                'whatsapp' => '6285771855911',
+                'whatsapp' => '6285888899558',
                 'maps_url' => 'https://maps.google.com/?q=Jl.+HR.+Muhammad+No.+12+Surabaya',
             ],
             [
@@ -290,7 +290,7 @@ class PageController extends Controller
                 'city' => 'Denpasar',
                 'address' => 'Jl. Sunset Road No. 21, Denpasar',
                 'phone' => '(0361) 555-0133',
-                'whatsapp' => '6285771855911',
+                'whatsapp' => '6285888899558',
                 'maps_url' => 'https://maps.google.com/?q=Jl.+Sunset+Road+No.+21+Denpasar',
             ],
         ];
@@ -355,6 +355,8 @@ class PageController extends Controller
 
     public function cekGaransi()
     {
-        return view('cek-garansi');
+        return view('cek-garansi', [
+            'dashboardBaseUrl' => config('services.dashboard.base_url'),
+        ]);
     }
 }

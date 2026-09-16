@@ -81,21 +81,18 @@
 
             <div>
                 <div class="map-embed" style="margin-bottom: var(--space-3);">
-                    Placeholder Peta &mdash; sematkan embed Google Maps cabang terpilih di sini
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.4753655034965!2d106.63194417430039!3d-6.332406361958469!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69fb4567030f6b%3A0x77e8113c85538a54!2sGLOSSPRO.ID!5e0!3m2!1sid!2sid!4v1789568261883!5m2!1sid!2sid" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" title="Lokasi GlossPro Workshop"></iframe>
                 </div>
 
-                <span class="eyebrow">Cabang Workshop</span>
-                <div class="branch-grid">
-                    @foreach($branches as $branch)
-                        <div class="branch-card glass">
-                            <div>
-                                <h4>{{ $branch['name'] }}</h4>
-                                <p>{{ $branch['address'] }}</p>
-                                <p>{{ $branch['phone'] }}</p>
-                            </div>
-                            <a href="{{ $branch['maps_url'] }}" target="_blank" rel="noopener" class="btn btn-outline">Buka Peta</a>
-                        </div>
-                    @endforeach
+                <span class="eyebrow">Alamat</span>
+                <div class="branch-card glass">
+                    <div>
+                        <h4>GlossPro Workshop</h4>
+                        <p>Ruko La Valle, Citra Garden Serpong No.66 Blk B17, Cisauk, Kec. Cisauk, Kota Tangerang Selatan, Banten 15341, Indonesia</p>
+                        <p>(021) 555-0142</p>
+                        <p>hello@glosspro.id</p>
+                    </div>
+                    <a href="https://maps.app.goo.gl/yvcZmGWbMYfv8YU96" target="_blank" rel="noopener" class="btn btn-outline">Buka Peta</a>
                 </div>
             </div>
         </div>
@@ -160,7 +157,7 @@
                 });
             });
 
-            var DEFAULT_WHATSAPP = '6285771855911';
+            var DEFAULT_WHATSAPP = '6285888899558';
             var form = document.getElementById('bookingForm');
             var branchInput = document.getElementById('bookingBranch');
 

@@ -61,7 +61,6 @@
         </nav>
 
         <div class="navbar-cta">
-            <a href="{{ route('contact') }}" class="btn btn-gold">Booking Sekarang</a>
             <button type="button" class="navbar-toggle" id="navbarToggle" aria-label="Buka menu">
                 <span></span><span></span><span></span>
             </button>

@@ -41,7 +41,7 @@
 @section('scripts')
     <script>
         (function () {
-            var DASHBOARD_BASE_URL = 'http://localhost:8000';
+            var DASHBOARD_BASE_URL = @json($dashboardBaseUrl);
 
             var form = document.getElementById('checkWarrantyForm');
             var input = document.getElementById('warrantyCode');
