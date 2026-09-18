@@ -34,4 +34,10 @@ return [
         'base_url' => rtrim(env('DASHBOARD_BASE_URL', 'http://localhost:8000'), '/'),
     ],
 
+    'cms' => [
+        'base_url' => rtrim(env('CMS_BASE_URL', 'http://localhost:8000'), '/'),
+        'api_key' => env('CMS_API_KEY'),
+        'site' => 'glosspro',
+    ],
+
 ];
