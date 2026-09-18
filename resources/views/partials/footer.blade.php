@@ -24,6 +24,7 @@
                 <a href="{{ route('about') }}">About Us</a>
                 <a href="{{ route('portfolio') }}">Portfolio</a>
                 <a href="{{ route('articles.index') }}">Artikel</a>
+                <a href="{{ route('sorotan.index') }}">Sorotan Produk</a>
                 <a href="{{ route('contact') }}">Contact Us</a>
                 <a href="{{ route('cek-garansi') }}">Cek Garansi</a>
             </div>

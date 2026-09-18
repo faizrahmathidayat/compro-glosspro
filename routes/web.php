@@ -21,5 +21,7 @@ Route::get('/layanan/{slug}', [PageController::class, 'serviceDetail'])->name('s
 Route::get('/portfolio', [PageController::class, 'portfolio'])->name('portfolio');
 Route::get('/artikel', [CmsController::class, 'articles'])->name('articles.index');
 Route::get('/artikel/{slug}', [CmsController::class, 'articleShow'])->name('articles.show');
+Route::get('/sorotan', [CmsController::class, 'catalog'])->name('sorotan.index');
+Route::get('/sorotan/{slug}', [CmsController::class, 'catalogShow'])->name('sorotan.show');
 Route::get('/contact', [PageController::class, 'contact'])->name('contact');
 Route::get('/cek-garansi', [PageController::class, 'cekGaransi'])->name('cek-garansi');
