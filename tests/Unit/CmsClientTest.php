@@ -4,18 +4,11 @@ namespace Tests\Unit;
 
 use App\Services\CmsClient;
 use Illuminate\Http\Client\ConnectionException;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Tests\TestCase;
 
 class CmsClientTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        parent::setUp();
-        Cache::flush();
-    }
-
     public function test_articles_returns_the_decoded_response_on_success(): void
     {
         Http::fake([
@@ -85,28 +78,18 @@ class CmsClientTest extends TestCase
         $this->assertSame('proyek-x', $client->portfolioItem('proyek-x')['data']['slug']);
     }
 
-    public function test_a_successful_response_is_cached_and_the_http_call_is_not_repeated(): void
-    {
-        Http::fake(['*/api/cms/articles*' => Http::response(['data' => [], 'meta' => []], 200)]);
-
-        $client = new CmsClient();
-        $client->articles(1);
-        $client->articles(1);
-
-        Http::assertSentCount(1);
-    }
-
-    public function test_a_failed_response_is_not_cached_so_the_next_call_retries(): void
+    public function test_each_call_hits_the_api_fresh_with_no_caching(): void
     {
         Http::fakeSequence()
-            ->push(['message' => 'error'], 500)
-            ->push(['data' => [], 'meta' => []], 200);
+            ->push(['data' => [['slug' => 'lama']], 'meta' => []], 200)
+            ->push(['data' => [['slug' => 'baru']], 'meta' => []], 200);
 
         $client = new CmsClient();
         $first = $client->articles(1);
         $second = $client->articles(1);
 
-        $this->assertNull($first);
-        $this->assertNotNull($second);
+        $this->assertSame('lama', $first['data'][0]['slug']);
+        $this->assertSame('baru', $second['data'][0]['slug']);
+        Http::assertSentCount(2);
     }
 }

@@ -2,14 +2,11 @@
 
 namespace App\Services;
 
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
 class CmsClient
 {
-    private const CACHE_TTL_SECONDS = 300;
-
     public function articles(int $page = 1): ?array
     {
         return $this->request('/api/cms/articles', ['page' => $page]);
@@ -43,12 +40,6 @@ class CmsClient
     private function request(string $path, array $query): ?array
     {
         $query['site'] = config('services.cms.site');
-        $cacheKey = 'cms:' . $path . ':' . http_build_query($query);
-
-        $cached = Cache::get($cacheKey);
-        if ($cached !== null) {
-            return $cached;
-        }
 
         try {
             $response = Http::withHeaders([
@@ -59,10 +50,7 @@ class CmsClient
                 return null;
             }
 
-            $decoded = $response->json();
-            Cache::put($cacheKey, $decoded, self::CACHE_TTL_SECONDS);
-
-            return $decoded;
+            return $response->json();
         } catch (\Throwable $e) {
             Log::warning('CMS API request failed: ' . $e->getMessage());
 
