@@ -117,6 +117,77 @@ class PageController extends Controller
     }
 
     /**
+     * Homepage hero slider — one slide per service pillar, each pointing at
+     * that pillar's first catalog variant (matches the `<slug>-01` pattern
+     * used by servicePillars()/serviceVariantLineup()).
+     */
+    private function heroSlides(): array
+    {
+        return [
+            [
+                'image' => 'images/hero/hero-01-coating.jpg',
+                'alt' => 'Mobil sedan hitam mengkilap melaju di jalan raya saat senja',
+                'eyebrow' => 'Nano Ceramic & Graphene Coating',
+                'title' => 'Kilau yang Bertahan.',
+                'title_highlight' => 'Proteksi yang Teruji.',
+                'subtext' => 'Coating hardness hingga 9H membentuk lapisan pelindung transparan yang membuat cat mobil Anda tetap mengkilap dan tahan gores lebih lama.',
+                'cta_label' => 'Lihat Paket Coating',
+                'cta_url' => route('services.show', 'car-coating-01'),
+                'stats' => [
+                    ['value' => '9H', 'label' => 'Coating Hardness'],
+                    ['value' => '3-5 Thn', 'label' => 'Garansi Coating'],
+                    ['value' => '10 Thn', 'label' => 'Garansi Tertinggi'],
+                ],
+            ],
+            [
+                'image' => 'images/hero/hero-02-detailing.jpg',
+                'alt' => 'Siluet mobil di dalam bay detailing tertutup dengan lampu menyala',
+                'eyebrow' => 'Detailing Menyeluruh',
+                'title' => 'Perawatan Presisi.',
+                'title_highlight' => 'Hasil Showroom.',
+                'subtext' => 'Dikerjakan di ruang kerja bebas debu oleh installer bersertifikat — dari paint correction hingga interior detailing, tuntas dalam satu kunjungan.',
+                'cta_label' => 'Lihat Paket Detailing',
+                'cta_url' => route('services.show', 'detailing-01'),
+                'stats' => [
+                    ['value' => '100%', 'label' => 'Bay Tertutup'],
+                    ['value' => 'Bersertifikat', 'label' => 'Installer'],
+                    ['value' => '10 Thn', 'label' => 'Garansi Tertinggi'],
+                ],
+            ],
+            [
+                'image' => 'images/hero/hero-03-window-film.jpg',
+                'alt' => 'Kaca jendela mobil dengan pantulan cahaya kota saat senja',
+                'eyebrow' => 'Window Film Premium',
+                'title' => 'Sejuk di Dalam.',
+                'title_highlight' => 'Elegan di Luar.',
+                'subtext' => 'Menolak panas dan sinar UV secara signifikan tanpa mengorbankan kejernihan pandangan — kenyamanan berkendara yang terasa sejak menit pertama.',
+                'cta_label' => 'Lihat Paket Window Film',
+                'cta_url' => route('services.show', 'window-film-01'),
+                'stats' => [
+                    ['value' => '99%', 'label' => 'Penolakan UV'],
+                    ['value' => 'IR Reject', 'label' => 'Teknologi Nano'],
+                    ['value' => '10 Thn', 'label' => 'Garansi Tertinggi'],
+                ],
+            ],
+            [
+                'image' => 'images/hero/hero-04-ppf.jpg',
+                'alt' => 'Instalasi paint protection film pada bodi mobil oleh teknisi',
+                'eyebrow' => 'Paint Protection Film',
+                'title' => 'Lindungi Cat Asli.',
+                'title_highlight' => 'Sebelum Tergores.',
+                'subtext' => 'Film TPU self-healing menahan baret halus, kerikil, dan chip di jalan tol — menjaga cat orisinal sekaligus nilai jual kembali kendaraan Anda.',
+                'cta_label' => 'Lihat Paket PPF',
+                'cta_url' => route('services.show', 'ppf-01'),
+                'stats' => [
+                    ['value' => '150-200 mic', 'label' => 'PPF Thickness'],
+                    ['value' => 'Self-Healing', 'label' => 'Teknologi Film'],
+                    ['value' => '10 Thn', 'label' => 'Garansi Tertinggi'],
+                ],
+            ],
+        ];
+    }
+
+    /**
      * Flat catalog of every variant/package across all four pillars — the
      * automotive equivalent of the old building-film VLT lineup.
      */
@@ -299,6 +370,7 @@ class PageController extends Controller
     public function home()
     {
         return view('home', [
+            'heroSlides' => $this->heroSlides(),
             'pillars' => array_values($this->servicePillars()),
             'stats' => $this->stats(),
             'testimonials' => $this->testimonials(),

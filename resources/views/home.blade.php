@@ -5,44 +5,44 @@
 
 @section('content')
 
-    {{-- ============================= HERO ============================= --}}
-    <section class="hero">
-        {{--
-            Hero media slot — intentionally empty. Drop a real hero video/photo
-            slider here later, e.g.:
-            <div class="hero-media"><video autoplay muted loop playsinline><source src="..."></video></div>
-            Until then the themed gradient background in .hero (style.css) carries the section.
-        --}}
+    {{-- ============================= HERO SLIDER ============================= --}}
+    <section class="hero hero-slider" id="heroSlider">
 
-        <div class="container hero-content">
-            <span class="eyebrow">Car Coating &middot; Detailing &middot; Window Film &middot; PPF</span>
-            <h1 class="hero-title">
-                Kilau yang Bertahan.<br><span class="highlight">Proteksi yang Teruji.</span>
-            </h1>
-            <p class="hero-subtext">
-                GlossPro menghadirkan Nano Ceramic &amp; Graphene Coating, Detailing menyeluruh,
-                Window Film, dan Paint Protection Film untuk menjaga kendaraan Anda tampil sempurna
-                lebih lama &mdash; dikerjakan installer bersertifikat di ruang kerja bebas debu.
-            </p>
-            <div class="hero-actions">
-                <a href="{{ route('services.index') }}" class="btn btn-gold">Lihat Semua Layanan</a>
-                <a href="{{ route('contact') }}" class="btn btn-outline">Booking / Konsultasi Gratis</a>
-            </div>
+        @foreach($heroSlides as $i => $slide)
+            <div class="hero-slide{{ $i === 0 ? ' is-active' : '' }}" data-slide="{{ $i }}">
+                <div class="hero-media">
+                    <img src="{{ asset($slide['image']) }}" alt="{{ $slide['alt'] }}" {{ $i === 0 ? '' : 'loading="lazy"' }}>
+                </div>
+                <div class="container hero-content">
+                    <span class="eyebrow">{{ $slide['eyebrow'] }}</span>
+                    <h1 class="hero-title">
+                        {{ $slide['title'] }}<br><span class="highlight">{{ $slide['title_highlight'] }}</span>
+                    </h1>
+                    <p class="hero-subtext">{{ $slide['subtext'] }}</p>
+                    <div class="hero-actions">
+                        <a href="{{ $slide['cta_url'] }}" class="btn btn-gold">{{ $slide['cta_label'] }}</a>
+                        <a href="{{ route('contact') }}" class="btn btn-outline">Booking / Konsultasi Gratis</a>
+                    </div>
 
-            <div class="hero-stats">
-                <div class="hero-stat">
-                    <b>9H</b>
-                    <span>Coating Hardness</span>
-                </div>
-                <div class="hero-stat">
-                    <b>150&ndash;200 mic</b>
-                    <span>PPF Thickness</span>
-                </div>
-                <div class="hero-stat">
-                    <b>10 Thn</b>
-                    <span>Garansi Tertinggi</span>
+                    <div class="hero-stats">
+                        @foreach($slide['stats'] as $stat)
+                            <div class="hero-stat">
+                                <b>{{ $stat['value'] }}</b>
+                                <span>{{ $stat['label'] }}</span>
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
             </div>
+        @endforeach
+
+        <button type="button" class="hero-arrow hero-arrow-prev" id="heroPrev" aria-label="Slide sebelumnya">&#10094;</button>
+        <button type="button" class="hero-arrow hero-arrow-next" id="heroNext" aria-label="Slide berikutnya">&#10095;</button>
+
+        <div class="hero-dots" id="heroDots">
+            @foreach($heroSlides as $i => $slide)
+                <button type="button" class="hero-dot{{ $i === 0 ? ' is-active' : '' }}" data-slide-to="{{ $i }}" aria-label="Ke slide {{ $i + 1 }}"></button>
+            @endforeach
         </div>
     </section>
 
@@ -206,6 +206,91 @@
 
 @section('scripts')
     <script>
+        (function () {
+            // Hero slider — autoplay + arrows + dots.
+            var root = document.getElementById('heroSlider');
+            if (!root) { return; }
+
+            var slides = Array.prototype.slice.call(root.querySelectorAll('.hero-slide'));
+            var dots = Array.prototype.slice.call(root.querySelectorAll('.hero-dot'));
+            var current = 0;
+            var timer = null;
+            var AUTOPLAY_MS = 6000;
+
+            slides.forEach(function (slide, i) {
+                slide.inert = !slide.classList.contains('is-active');
+            });
+
+            // Guarantee the tallest slide's content (title + subtext + CTAs +
+            // stats) always clears the dot pagination, even on short/zoomed
+            // viewports where 100vh alone isn't enough room — grow the
+            // section instead of letting content silently overlap the dots.
+            var DOTS_CLEARANCE = 64;
+
+            function syncMinHeight() {
+                root.style.minHeight = '';
+                var tallest = 0;
+                slides.forEach(function (slide) {
+                    var content = slide.querySelector('.hero-content');
+                    if (content) { tallest = Math.max(tallest, content.scrollHeight); }
+                });
+                var needed = tallest + DOTS_CLEARANCE;
+                if (needed > window.innerHeight) {
+                    root.style.minHeight = needed + 'px';
+                }
+            }
+
+            syncMinHeight();
+            window.addEventListener('resize', syncMinHeight);
+
+            function goTo(index) {
+                index = (index + slides.length) % slides.length;
+                slides[current].classList.remove('is-active');
+                slides[current].inert = true;
+                dots[current].classList.remove('is-active');
+                current = index;
+                slides[current].classList.add('is-active');
+                slides[current].inert = false;
+                dots[current].classList.add('is-active');
+            }
+
+            function next() { goTo(current + 1); }
+            function prev() { goTo(current - 1); }
+
+            function startAutoplay() {
+                stopAutoplay();
+                timer = setInterval(next, AUTOPLAY_MS);
+            }
+
+            function stopAutoplay() {
+                if (timer) { clearInterval(timer); timer = null; }
+            }
+
+            document.getElementById('heroNext').addEventListener('click', function () {
+                next();
+                startAutoplay();
+            });
+
+            document.getElementById('heroPrev').addEventListener('click', function () {
+                prev();
+                startAutoplay();
+            });
+
+            dots.forEach(function (dot, i) {
+                dot.addEventListener('click', function () {
+                    goTo(i);
+                    startAutoplay();
+                });
+            });
+
+            root.addEventListener('mouseenter', stopAutoplay);
+            root.addEventListener('mouseleave', startAutoplay);
+
+            if (slides.length > 1) {
+                startAutoplay();
+            }
+        })();
+
         (function () {
             // Before / after drag-reveal comparison slider.
             var frame = document.getElementById('compareFrame');
