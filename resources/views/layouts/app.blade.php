@@ -22,6 +22,8 @@
 
     @include('partials.footer')
 
+    @include('partials.lightbox')
+
     <script>
         (function () {
             var navbar = document.getElementById('mainNavbar');
@@ -89,6 +91,51 @@
             window.addEventListener('resize', function () {
                 if (window.innerWidth > 768) { closeMobileNav(); }
             });
+
+            // Lightbox — opened by any .cms-gallery-item on the page (Artikel/Sorotan/Portofolio detail views).
+            var lightbox = document.getElementById('cmsLightbox');
+            var lightboxImage = document.getElementById('cmsLightboxImage');
+            var lightboxItems = [];
+            var lightboxIndex = 0;
+
+            function openLightboxAt(index) {
+                if (!lightboxItems[index]) { return; }
+                lightboxIndex = index;
+                lightboxImage.setAttribute('src', lightboxItems[index].getAttribute('data-full'));
+                lightboxImage.setAttribute('alt', lightboxItems[index].getAttribute('data-alt') || '');
+                lightbox.classList.add('is-open');
+                lightbox.setAttribute('aria-hidden', 'false');
+            }
+
+            function closeLightbox() {
+                lightbox.classList.remove('is-open');
+                lightbox.setAttribute('aria-hidden', 'true');
+            }
+
+            if (lightbox && lightboxImage) {
+                lightboxItems = Array.prototype.slice.call(document.querySelectorAll('.cms-gallery-item'));
+
+                lightboxItems.forEach(function (item, index) {
+                    item.addEventListener('click', function () { openLightboxAt(index); });
+                });
+
+                var lightboxClose = document.getElementById('cmsLightboxClose');
+                var lightboxBackdrop = document.getElementById('cmsLightboxBackdrop');
+                var lightboxPrev = document.getElementById('cmsLightboxPrev');
+                var lightboxNext = document.getElementById('cmsLightboxNext');
+
+                if (lightboxClose) { lightboxClose.addEventListener('click', closeLightbox); }
+                if (lightboxBackdrop) { lightboxBackdrop.addEventListener('click', closeLightbox); }
+                if (lightboxPrev) { lightboxPrev.addEventListener('click', function () { openLightboxAt((lightboxIndex - 1 + lightboxItems.length) % lightboxItems.length); }); }
+                if (lightboxNext) { lightboxNext.addEventListener('click', function () { openLightboxAt((lightboxIndex + 1) % lightboxItems.length); }); }
+
+                document.addEventListener('keydown', function (e) {
+                    if (!lightbox.classList.contains('is-open')) { return; }
+                    if (e.key === 'Escape') { closeLightbox(); }
+                    if (e.key === 'ArrowLeft' && lightboxPrev) { lightboxPrev.click(); }
+                    if (e.key === 'ArrowRight' && lightboxNext) { lightboxNext.click(); }
+                });
+            }
         })();
     </script>
 

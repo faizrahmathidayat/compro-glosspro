@@ -2121,3 +2121,238 @@ section {
         scroll-behavior: auto !important;
     }
 }
+
+/* ---------- CMS Content (Artikel / Sorotan Produk / Portofolio) ---------- */
+.cms-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--space-3);
+}
+
+.cms-card {
+    display: block;
+    background: var(--bg-alt);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.cms-card:hover {
+    border-color: var(--line-bright);
+    transform: translateY(-2px);
+}
+
+.cms-card-media {
+    aspect-ratio: 16 / 10;
+    background: var(--bg-raised);
+    overflow: hidden;
+}
+
+.cms-card-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.cms-card-media-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--glow-1), var(--glow-2));
+}
+
+.cms-card-body {
+    padding: var(--space-2);
+}
+
+.cms-card-tag {
+    display: inline-block;
+    font-size: 0.75rem;
+    color: var(--silver);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: var(--space-1);
+}
+
+.cms-card-body h4 {
+    margin: 0 0 var(--space-1);
+    font-family: var(--font-display);
+}
+
+.cms-card-body p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.cms-pagination {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-1);
+    margin-top: var(--space-4);
+}
+
+.cms-pagination a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 40px;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--line);
+    color: var(--text);
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.cms-pagination a.is-active {
+    background: var(--silver);
+    border-color: var(--silver);
+    color: #121316;
+    font-weight: 600;
+}
+
+.cms-detail {
+    max-width: 780px;
+}
+
+.cms-article {
+    color: var(--text-muted);
+    line-height: 1.75;
+}
+
+.cms-article h1, .cms-article h2, .cms-article h3 {
+    color: var(--text);
+    font-family: var(--font-display);
+    margin-top: var(--space-3);
+}
+
+.cms-article p {
+    margin: 0 0 var(--space-2);
+}
+
+.cms-article img {
+    max-width: 100%;
+    border-radius: var(--radius-sm);
+}
+
+.cms-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1);
+    margin-bottom: var(--space-3);
+}
+
+.cms-gallery-item {
+    width: 96px;
+    height: 72px;
+    padding: 0;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    cursor: pointer;
+    background: none;
+}
+
+.cms-gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.cms-spec-list {
+    display: grid;
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    margin-bottom: var(--space-3);
+}
+
+.cms-spec-row {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--space-1) var(--space-2);
+    background: var(--bg-alt);
+}
+
+.cms-spec-label {
+    color: var(--text-muted);
+}
+
+.cms-spec-value {
+    color: var(--text);
+    font-weight: 600;
+}
+
+/* ---------- CMS Lightbox ---------- */
+.cms-lightbox {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 200;
+}
+
+.cms-lightbox.is-open {
+    display: flex;
+}
+
+.cms-lightbox-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(10, 11, 13, 0.92);
+    backdrop-filter: blur(4px);
+}
+
+.cms-lightbox-frame {
+    position: relative;
+    max-width: 90vw;
+    max-height: 85vh;
+    z-index: 1;
+}
+
+.cms-lightbox-frame img {
+    max-width: 90vw;
+    max-height: 85vh;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-elevated);
+}
+
+.cms-lightbox-close, .cms-lightbox-nav {
+    position: absolute;
+    z-index: 2;
+    background: var(--bg-panel);
+    border: 1px solid var(--line-bright);
+    color: var(--text);
+    border-radius: var(--radius-pill);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cms-lightbox-close {
+    top: var(--space-2);
+    right: var(--space-2);
+    width: 40px;
+    height: 40px;
+    font-size: 1.25rem;
+}
+
+.cms-lightbox-nav {
+    top: 50%;
+    transform: translateY(-50%);
+    width: 48px;
+    height: 48px;
+    font-size: 1.25rem;
+}
+
+.cms-lightbox-prev { left: var(--space-2); }
+.cms-lightbox-next { right: var(--space-2); }
