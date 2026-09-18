@@ -19,6 +19,7 @@ Route::get('/about', [PageController::class, 'about'])->name('about');
 Route::get('/layanan', [PageController::class, 'services'])->name('services.index');
 Route::get('/layanan/{slug}', [PageController::class, 'serviceDetail'])->name('services.show');
 Route::get('/portfolio', [PageController::class, 'portfolio'])->name('portfolio');
+Route::get('/portfolio/{slug}', [PageController::class, 'portfolioShow'])->name('portfolio.show');
 Route::get('/artikel', [CmsController::class, 'articles'])->name('articles.index');
 Route::get('/artikel/{slug}', [CmsController::class, 'articleShow'])->name('articles.show');
 Route::get('/sorotan', [CmsController::class, 'catalog'])->name('sorotan.index');

@@ -2,10 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\CmsClient;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
 {
+    private CmsClient $cms;
+
+    public function __construct(CmsClient $cms)
+    {
+        $this->cms = $cms;
+    }
+
     /**
      * The four GlossPro service pillars. Single source of truth shared by
      * the navbar mega-menu, homepage showcase, and services index.
@@ -275,25 +283,6 @@ class PageController extends Controller
     }
 
     /**
-     * Sample project gallery, tagged by service pillar + vehicle type for
-     * client-side filtering. Placeholder copy — swap in real project photos
-     * and captions before launch.
-     */
-    private function portfolioItems(): array
-    {
-        return [
-            ['title' => 'Graphene Coating — Sedan Eropa', 'pillar' => 'car-coating', 'pillar_label' => 'Car Coating', 'car_type' => 'sedan', 'car_type_label' => 'Sedan'],
-            ['title' => 'Nano Ceramic — City Car Harian', 'pillar' => 'car-coating', 'pillar_label' => 'Car Coating', 'car_type' => 'hatchback', 'car_type_label' => 'Hatchback'],
-            ['title' => 'Interior Detailing — MPV Keluarga', 'pillar' => 'detailing', 'pillar_label' => 'Detailing', 'car_type' => 'mpv', 'car_type_label' => 'MPV'],
-            ['title' => 'Exterior Detailing — SUV Off-Road', 'pillar' => 'detailing', 'pillar_label' => 'Detailing', 'car_type' => 'suv', 'car_type_label' => 'SUV'],
-            ['title' => 'Ceramic Film VLT 20% — SUV Premium', 'pillar' => 'window-film', 'pillar_label' => 'Window Film', 'car_type' => 'suv', 'car_type_label' => 'SUV'],
-            ['title' => 'Carbon Film — Sedan Bisnis', 'pillar' => 'window-film', 'pillar_label' => 'Window Film', 'car_type' => 'sedan', 'car_type_label' => 'Sedan'],
-            ['title' => 'PPF Full Body Gloss — Mobil Sport', 'pillar' => 'ppf', 'pillar_label' => 'PPF', 'car_type' => 'sport', 'car_type_label' => 'Sport'],
-            ['title' => 'PPF Partial Front Kit — MPV Baru', 'pillar' => 'ppf', 'pillar_label' => 'PPF', 'car_type' => 'mpv', 'car_type_label' => 'MPV'],
-        ];
-    }
-
-    /**
      * Placeholder testimonials — replace with real customer quotes before
      * the site goes live.
      */
@@ -409,12 +398,24 @@ class PageController extends Controller
         ]);
     }
 
-    public function portfolio()
+    public function portfolio(Request $request)
     {
+        $page = max(1, (int) $request->query('page', 1));
+        $response = $this->cms->portfolio($page);
+
         return view('portfolio', [
-            'items' => $this->portfolioItems(),
-            'pillars' => array_values($this->servicePillars()),
+            'items' => $response['data'] ?? [],
+            'meta' => $response['meta'] ?? null,
         ]);
+    }
+
+    public function portfolioShow(string $slug)
+    {
+        $response = $this->cms->portfolioItem($slug);
+
+        abort_if(!isset($response['data']), 404);
+
+        return view('portfolio-show', ['item' => $response['data']]);
     }
 
     public function contact()
