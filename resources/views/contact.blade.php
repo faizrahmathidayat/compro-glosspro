@@ -89,7 +89,7 @@
                     <div>
                         <h4>GlossPro Workshop</h4>
                         <p>Ruko La Valle, Citra Garden Serpong No.66 Blk B17, Cisauk, Kec. Cisauk, Kota Tangerang Selatan, Banten 15341, Indonesia</p>
-                        <p>(021) 555-0142</p>
+                        <p>0858-8889-9558</p>
                         <p>hello@glosspro.id</p>
                     </div>
                     <a href="https://maps.app.goo.gl/yvcZmGWbMYfv8YU96" target="_blank" rel="noopener" class="btn btn-outline">Buka Peta</a>

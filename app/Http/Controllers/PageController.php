@@ -325,7 +325,7 @@ class PageController extends Controller
                 'name' => 'GlossPro Workshop Jakarta Pusat',
                 'city' => 'Jakarta',
                 'address' => 'Jl. Jenderal Sudirman No. 45, Jakarta Pusat',
-                'phone' => '(021) 555-0142',
+                'phone' => '0858-8889-9558',
                 'whatsapp' => '6285888899558',
                 'maps_url' => 'https://maps.google.com/?q=Jl.+Jenderal+Sudirman+No.+45+Jakarta+Pusat',
             ],

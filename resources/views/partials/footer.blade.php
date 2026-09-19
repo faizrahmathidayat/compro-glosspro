@@ -40,7 +40,7 @@
             <div class="footer-col">
                 <h5>Kontak</h5>
                 <p>Ruko La Valle, Citra Garden Serpong No.66 Blk B17, Cisauk, Kota Tangerang Selatan, Banten 15341</p>
-                <p>(021) 555-0142</p>
+                <p>0858-8889-9558</p>
                 <p>hello@glosspro.id</p>
             </div>
         </div>
