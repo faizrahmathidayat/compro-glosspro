@@ -92,7 +92,9 @@
                 if (window.innerWidth > 768) { closeMobileNav(); }
             });
 
-            // Lightbox — opened by any .cms-gallery-item on the page (Artikel/Sorotan/Portofolio detail views).
+            // Lightbox — opened by any .cms-lightbox-trigger on the page (Artikel/Sorotan/Portofolio detail views:
+            // the single-image display and every carousel slide's image are triggers, regardless of which slide
+            // is currently visible, so prev/next inside the lightbox can page through the full gallery).
             var lightbox = document.getElementById('cmsLightbox');
             var lightboxImage = document.getElementById('cmsLightboxImage');
             var lightboxItems = [];
@@ -113,7 +115,7 @@
             }
 
             if (lightbox && lightboxImage) {
-                lightboxItems = Array.prototype.slice.call(document.querySelectorAll('.cms-gallery-item'));
+                lightboxItems = Array.prototype.slice.call(document.querySelectorAll('.cms-lightbox-trigger'));
 
                 lightboxItems.forEach(function (item, index) {
                     item.addEventListener('click', function () { openLightboxAt(index); });
@@ -136,6 +138,59 @@
                     if (e.key === 'ArrowRight' && lightboxNext) { lightboxNext.click(); }
                 });
             }
+
+            // CMS image carousel — used on Artikel/Sorotan/Portofolio detail pages
+            // whenever an item has more than one image. No-op if none exist.
+            document.querySelectorAll('.cms-carousel').forEach(function (carousel) {
+                var slides = Array.prototype.slice.call(carousel.querySelectorAll('.cms-carousel-slide'));
+                var dots = Array.prototype.slice.call(carousel.querySelectorAll('.cms-carousel-dot'));
+                var prevBtn = carousel.querySelector('.cms-carousel-prev');
+                var nextBtn = carousel.querySelector('.cms-carousel-next');
+                var current = 0;
+
+                function goTo(index) {
+                    current = (index + slides.length) % slides.length;
+                    slides.forEach(function (slide, i) { slide.classList.toggle('is-active', i === current); });
+                    dots.forEach(function (dot, i) { dot.classList.toggle('is-active', i === current); });
+                }
+
+                if (prevBtn) { prevBtn.addEventListener('click', function () { goTo(current - 1); }); }
+                if (nextBtn) { nextBtn.addEventListener('click', function () { goTo(current + 1); }); }
+                dots.forEach(function (dot, i) { dot.addEventListener('click', function () { goTo(i); }); });
+            });
+
+            // CMS article body cleanup — admins often type "1. Judul Langkah"
+            // as a plain paragraph instead of using the WYSIWYG's numbered-list
+            // button. Detect that pattern and give it the same numbered-card
+            // treatment as a real <ol>, and drop empty spacer paragraphs
+            // (Quill's blank "<p><br></p>" lines) so spacing stays consistent
+            // instead of doubling up with our own paragraph margins.
+            document.querySelectorAll('.cms-article').forEach(function (article) {
+                Array.prototype.slice.call(article.querySelectorAll('p')).forEach(function (p) {
+                    var text = p.textContent.replace(/ /g, ' ').trim();
+
+                    if (text === '') {
+                        p.remove();
+                        return;
+                    }
+
+                    var match = text.match(/^(\d{1,2})\.\s+(.+)$/);
+                    if (match && p.children.length === 0) {
+                        var numberBadge = document.createElement('span');
+                        numberBadge.className = 'cms-step-number';
+                        numberBadge.textContent = match[1];
+
+                        var titleText = document.createElement('span');
+                        titleText.className = 'cms-step-text';
+                        titleText.textContent = match[2];
+
+                        p.textContent = '';
+                        p.appendChild(numberBadge);
+                        p.appendChild(titleText);
+                        p.classList.add('cms-step-title');
+                    }
+                });
+            });
         })();
     </script>
 

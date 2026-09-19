@@ -42,7 +42,7 @@ class ArtikelPageTest extends TestCase
 
         $response->assertOk();
         $response->assertSee('Isi lengkap artikel', false);
-        $response->assertSee('cms-gallery-item', false);
+        $response->assertSee('cms-lightbox-trigger', false);
     }
 
     public function test_show_returns_404_when_the_cms_has_no_matching_article(): void
