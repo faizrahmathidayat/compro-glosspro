@@ -627,29 +627,6 @@ section {
     flex-wrap: wrap;
 }
 
-.hero-stats {
-    display: flex;
-    gap: var(--space-5);
-    margin-top: var(--space-3);
-    flex-wrap: wrap;
-}
-
-.hero-stat b {
-    display: block;
-    font-family: var(--font-display);
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--text);
-}
-
-.hero-stat span {
-    color: var(--text-faint);
-    font-family: var(--font-display);
-    font-size: 0.76rem;
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
-}
-
 /* ---------- Floating Stats Counter band ---------- */
 .stats-band {
     position: relative;
@@ -2050,11 +2027,6 @@ section {
 
     .hero-arrow {
         display: none;
-    }
-
-    .hero-stats {
-        gap: var(--space-3);
-        margin-top: var(--space-4);
     }
 
     .hero-dots {

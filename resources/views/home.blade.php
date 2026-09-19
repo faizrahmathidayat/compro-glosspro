@@ -14,23 +14,12 @@
                     <img src="{{ asset($slide['image']) }}" alt="{{ $slide['alt'] }}" {{ $i === 0 ? '' : 'loading="lazy"' }}>
                 </div>
                 <div class="container hero-content">
-                    <span class="eyebrow">{{ $slide['eyebrow'] }}</span>
                     <h1 class="hero-title">
                         {{ $slide['title'] }}<br><span class="highlight">{{ $slide['title_highlight'] }}</span>
                     </h1>
-                    <p class="hero-subtext">{{ $slide['subtext'] }}</p>
                     <div class="hero-actions">
                         <a href="{{ $slide['cta_url'] }}" class="btn btn-gold">{{ $slide['cta_label'] }}</a>
                         <a href="{{ route('contact') }}" class="btn btn-outline">Booking / Konsultasi Gratis</a>
-                    </div>
-
-                    <div class="hero-stats">
-                        @foreach($slide['stats'] as $stat)
-                            <div class="hero-stat">
-                                <b>{{ $stat['value'] }}</b>
-                                <span>{{ $stat['label'] }}</span>
-                            </div>
-                        @endforeach
                     </div>
                 </div>
             </div>
