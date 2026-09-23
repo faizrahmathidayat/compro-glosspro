@@ -134,7 +134,7 @@ class PageController extends Controller
         return [
             [
                 'image' => 'images/hero/hero-01-coating.jpg',
-                'alt' => 'Mobil sedan hitam mengkilap melaju di jalan raya saat senja',
+                'alt' => 'Bodi mobil merah mengkilap dengan butiran air yang menggulir berkat lapisan coating',
                 'title' => 'Kilau yang Bertahan.',
                 'title_highlight' => 'Proteksi yang Teruji.',
                 'cta_label' => 'Lihat Paket Coating',
@@ -142,7 +142,7 @@ class PageController extends Controller
             ],
             [
                 'image' => 'images/hero/hero-02-detailing.jpg',
-                'alt' => 'Siluet mobil di dalam bay detailing tertutup dengan lampu menyala',
+                'alt' => 'Interior kulit putih mobil yang bersih dan rapi hasil detailing',
                 'title' => 'Perawatan Presisi.',
                 'title_highlight' => 'Hasil Showroom.',
                 'cta_label' => 'Lihat Paket Detailing',
@@ -150,7 +150,7 @@ class PageController extends Controller
             ],
             [
                 'image' => 'images/hero/hero-03-window-film.jpg',
-                'alt' => 'Kaca jendela mobil dengan pantulan cahaya kota saat senja',
+                'alt' => 'Mobil putih dengan kaca film di studio bercahaya terang',
                 'title' => 'Sejuk di Dalam.',
                 'title_highlight' => 'Elegan di Luar.',
                 'cta_label' => 'Lihat Paket Window Film',
@@ -158,7 +158,7 @@ class PageController extends Controller
             ],
             [
                 'image' => 'images/hero/hero-04-ppf.jpg',
-                'alt' => 'Instalasi paint protection film pada bodi mobil oleh teknisi',
+                'alt' => 'Teknisi mengelupas lapisan pelindung dari paint protection film bening di kap mobil',
                 'title' => 'Lindungi Cat Asli.',
                 'title_highlight' => 'Sebelum Tergores.',
                 'cta_label' => 'Lihat Paket PPF',

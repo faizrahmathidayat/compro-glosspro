@@ -33,7 +33,7 @@
 
             <div class="about-visual">
                 <div class="about-visual-inner">
-                    <img src="{{ asset('images/glosspro-logo.png') }}" alt="GlossPro">
+                    <img src="{{ asset('images/glosspro-logo-white.png') }}" alt="GlossPro">
                 </div>
             </div>
         </div>

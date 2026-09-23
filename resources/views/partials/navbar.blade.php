@@ -8,7 +8,6 @@
         </a>
 
         <nav class="navbar-links" id="navbarLinks">
-            <a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'is-active' : '' }}">Home</a>
             <a href="{{ route('about') }}" class="{{ request()->routeIs('about') ? 'is-active' : '' }}">About Us</a>
 
             <div class="navbar-dropdown" id="layananDropdown">
