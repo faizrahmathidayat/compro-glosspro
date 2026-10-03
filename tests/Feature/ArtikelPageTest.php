@@ -45,6 +45,33 @@ class ArtikelPageTest extends TestCase
         $response->assertSee('cms-lightbox-trigger', false);
     }
 
+    public function test_show_renders_tags_when_present_and_escapes_them(): void
+    {
+        Http::fake(['*/api/cms/articles/tips-coating*' => Http::response(['data' => [
+            'slug' => 'tips-coating', 'title' => 'Tips Merawat Coating', 'body' => '<p>Isi</p>',
+            'published_at' => '2026-09-18T00:00:00+00:00', 'category' => 'Tips', 'media' => [],
+            'tags' => ['Coating', 'PPF', '<script>x</script>'],
+        ]], 200)]);
+
+        $response = $this->get('/artikel/tips-coating');
+
+        $response->assertOk();
+        $response->assertSee('class="cms-tags"', false);
+        $response->assertSee('#Coating', false);
+        $response->assertSee('#PPF', false);
+        $response->assertDontSee('<script>x</script>', false);
+    }
+
+    public function test_show_has_no_tag_list_when_the_article_has_no_tags(): void
+    {
+        Http::fake(['*/api/cms/articles/tips-coating*' => Http::response(['data' => [
+            'slug' => 'tips-coating', 'title' => 'Tips Merawat Coating', 'body' => '<p>Isi</p>',
+            'published_at' => '2026-09-18T00:00:00+00:00', 'category' => 'Tips', 'media' => [], 'tags' => [],
+        ]], 200)]);
+
+        $this->get('/artikel/tips-coating')->assertOk()->assertDontSee('class="cms-tags"', false);
+    }
+
     public function test_show_returns_404_when_the_cms_has_no_matching_article(): void
     {
         Http::fake(['*/api/cms/articles/tidak-ada*' => Http::response(['message' => 'Artikel tidak ditemukan.'], 404)]);

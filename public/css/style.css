@@ -2249,6 +2249,27 @@ section {
     line-height: 1.3;
 }
 
+.cms-tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin: var(--space-2) 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.cms-tag {
+    padding: 4px 12px;
+    border: 1px solid var(--line-bright);
+    border-radius: var(--radius-pill);
+    background: var(--bg-alt);
+    color: var(--silver);
+    font-size: 0.78rem;
+    font-weight: 600;
+    line-height: 1.5;
+}
+
 .cms-detail-header .cms-meta {
     color: var(--text-faint);
     font-size: 0.85rem;

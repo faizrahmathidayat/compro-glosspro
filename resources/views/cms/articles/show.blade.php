@@ -13,6 +13,13 @@
                     <span class="eyebrow">{{ $item['category'] }}</span>
                 @endif
                 <h1 class="section-title">{{ $item['title'] }}</h1>
+                @if(!empty($item['tags']))
+                    <ul class="cms-tags" aria-label="Tag artikel">
+                        @foreach($item['tags'] as $tag)
+                            <li class="cms-tag">#{{ $tag }}</li>
+                        @endforeach
+                    </ul>
+                @endif
             </div>
         </div>
     </section>
