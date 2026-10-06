@@ -25,7 +25,7 @@
                         type="text"
                         id="warrantyCode"
                         name="warranty_code"
-                        placeholder="Contoh: WR2026002"
+                        placeholder="Contoh: LEX-2026-00001"
                         autocomplete="off"
                         required>
                     <button type="submit" class="btn btn-gold" id="checkWarrantyBtn">Cek Garansi</button>
